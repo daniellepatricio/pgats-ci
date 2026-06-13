@@ -1,0 +1,53 @@
+# CI de Nível 01 - Disparo Manual através de clique
+
+# nome da pipeline
+name: 'N1 - Execução Manual'
+
+# sem gatilho automático
+trigger: none
+
+# sem gatilho por Pull Request
+pr: none
+
+# máquina onde o job vai rodar
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: e2e_tests
+    displayName: 'Executar testes E2E'
+
+    steps:
+      # clone do projeto
+      - checkout: self
+
+      # instalação do Node
+      - task: NodeTool@0
+        displayName: 'Instalando Node.js'
+        inputs:
+          versionSpec: '24.x'
+
+      # instalação do Yarn
+      - script: npm install -g yarn
+        displayName: 'Instalando Yarn'
+
+      # instalação das dependências
+      - script: yarn
+        displayName: 'Instalando dependências'
+
+      # instalação dos Browsers do Playwright
+      - script: yarn playwright install
+        displayName: 'Instalando Browsers do Playwright'
+
+      # executar os testes e2e
+      - script: yarn run e2e
+        displayName: 'Executando testes e2e'
+
+      # salvar relatórios de testes
+      - task: PublishPipelineArtifact@1
+        displayName: 'Salvando relatórios de testes'
+        condition: always()
+        inputs:
+          targetPath: '$(System.DefaultWorkingDirectory)/playwright-report'
+          artifact: 'Relatório de Testes E2E'
+          publishLocation: 'pipeline'

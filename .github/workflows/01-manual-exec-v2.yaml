@@ -8,7 +8,7 @@ name: 'N1 - Execução Manual'
 
 on:
   workflow_dispatch:
-    push:
+  push:
     branches:
       - master
 #tarefas dentro da pipeline = jobs

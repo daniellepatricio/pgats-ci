@@ -13,6 +13,9 @@ on:
     workflows: ['N1 - Execução Manual', 'N2 - Execução Agendada']
     types:
       - completed
+  push:
+    branches:
+      - master
 
 #tarefas dentro da pipeline = jobs
 

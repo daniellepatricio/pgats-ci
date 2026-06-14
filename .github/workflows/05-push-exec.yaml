@@ -6,7 +6,7 @@ name: 'N5 - Execução por Push'
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   automated-tests:
@@ -43,7 +43,7 @@ jobs:
       # salva o relatório dos testes
       - name: Salvando relatório dos testes
         uses: actions/upload-artifact@v4
-        if: always()
+        if: ${{ always() }}
         with:
           name: relatorio-testes-automatizados
           path: ./playwright-report

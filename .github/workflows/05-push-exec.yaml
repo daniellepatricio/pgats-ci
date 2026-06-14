@@ -1,6 +1,6 @@
 # CI - Execução por Push
 
-name: 'CI - Testes Automatizados'
+name: 'N5 - Execução por Push'
 
 # gatilho: executa quando houver push
 on:
